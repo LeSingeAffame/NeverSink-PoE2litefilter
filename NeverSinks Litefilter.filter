@@ -12,6 +12,8 @@
 # TWITCH:  https://www.twitch.tv/neversink
 # PATREON: https://www.patreon.com/Neversink
 
+# Overrides LSA
+
 #--------------------------
 # Overrides - Uniques, Valuables
 #--------------------------
@@ -190,10 +192,19 @@ PlayEffect Cyan
 PlayAlertSound 2 300
 
 # Special B Tier - Any Runes and Charms
+# Show 
+# BaseType " Rune" " Charm"
+# SetTextColor 0 240 190
+# PlayEffect Cyan Temp
 Show 
-BaseType " Rune" " Charm"
+BaseType " Rune"
 SetTextColor 0 240 190
 PlayEffect Cyan Temp
+
+Hide
+BaseType "Charm"
+AreaLevel >= 65
+# Rarity <= Magic
 
 #--------------------------
 # Scroll of Wisdom High Level Hiding
@@ -351,20 +362,33 @@ SetFontSize 40
 # Waystones
 #--------------------------
 
-Show
-WaystoneTier < 10
-AreaLevel > 77
+### LSA EDIT :
+# Hide low tier Waystones instead of making them pop less
+# <T6 hidden at area level 70 (74 base)
+# <T11 hidden at area level 75 (77 base)
+# <T14 hidden at area level 79
+
+Hide
+WaystoneTier < 15
+AreaLevel >= 79
 BaseType "Waystone"
 Rarity <= Rare
 SetTextColor 255 255 255
 SetBorderColor 255 255 255
 SetFontSize 35
 
-Show
-WaystoneTier < 5
-AreaLevel > 74
+Hide
+WaystoneTier < 11
+AreaLevel >= 75
 BaseType "Waystone"
-Rarity <= Rare
+SetTextColor 255 255 255
+SetBorderColor 255 255 255
+SetFontSize 35
+
+Hide
+WaystoneTier < 6
+AreaLevel >= 70
+BaseType "Waystone"
 SetTextColor 255 255 255
 SetBorderColor 255 255 255
 SetFontSize 35
@@ -396,15 +420,25 @@ MinimapIcon 1 Yellow Diamond
 # Rings, Amulets, Belts
 #--------------------------
 
+### Rings: Ruby, Sapphire, Topaz, Amethyst, Prismatic, Gold, Unset, Breach
 Show
-Rarity Normal
-Class "Rings" "Amulets" "Belts"
+BaseType "Ruby Ring" "Sapphire Ring" "Topaz Ring" "Amethyst Ring" "Prismatic Ring" "Gold Ring" "Unset Ring" "Breach Ring"
 SetFontSize 40
 
+### Amulets: Azure, Jade, Lapis, Lunar, Stellar, Gold
 Show
-Class "Rings" "Amulets" "Belts"
-Rarity Magic
+BaseType "Azure Amulet" "Jade Amulet" "Lapis Amulet" "Lunar Amulet" "Stellar Amulet" "Gold Amulet"
 SetFontSize 40
+
+Hide
+# Rarity Normal
+Class "Rings" "Amulets"
+SetFontSize 40
+
+# Show
+# Class "Rings" "Amulets" "Belts"
+# Rarity Magic
+# SetFontSize 40
 
 #--------------------------
 # Salvagable Items
@@ -417,20 +451,25 @@ SetBorderColor 200 200 200
 SetFontSize 35
 
 Show
-Quality > 1
-Rarity Normal
-SetBorderColor 200 200 200
-SetFontSize 35
-
-Show
 Sockets > 0
 Rarity Magic
 SetBorderColor 0 0 200
 SetFontSize 35
 
 Show
-Quality > 1
-Rarity Magic
+Sockets > 0
+Rarity Rare
+SetBorderColor 0 0 200
+SetFontSize 35
+
+### Qual: Show any qual, highlight >= 10
+Show
+Quality > 0
+SetBorderColor 0 0 200
+SetFontSize 25
+
+Show
+Quality >= 10
 SetBorderColor 0 0 200
 SetFontSize 35
 
@@ -446,9 +485,9 @@ SetFontSize 35
 # AreaLevel > 72
 # SetFontSize 35
 
-Show
-Rarity Rare
-SetFontSize 35
+# Show
+# Rarity Rare
+# SetFontSize 35
 
 #--------------------------
 # Hide Rules (only high level), super light edition
@@ -505,19 +544,122 @@ Class "Body Armours" "Helmets" "Boots" "Gloves" "Shields" "Foci" "Quivers" "One 
 ### OPTIONAL RULE: Hide random bases
 # REMOVE THE BASES YOU --DO-- WANT TO SEE BEFORE SETTING TO HIDE
 
-# Hide
-# Rarity <= Magic
-# Class "Flasks" "Body Armours" "Helmets" "Boots" "Gloves" "Shields" "Foci" "Quivers" "One Hand Maces" "Two Hand Maces" "Staves" "Quarterstaves" "Bows" "Crossbows" "Wands" "Sceptres"
-# AreaLevel >= 65
+# Highlight good bases
+Show
+BaseType "Expert Tribal Mask" "Expert Hunting Shoes" "Expert Spiral Wraps" "Expert Waxed Jacket" "Expert Wayfarer Jacket" "Expert Scalper's Jacket" "Expert Slicing Quarterstaff" "Expert Crescent Quarterstaff"
+SetBorderColor 200 200 200
+SetFontSize 35
 
-### OPTIONAL RULE: REDUCES BACKGROUND ON LOW LEVEL BASES
-
-# Show
-# Rarity <= Magic
+### LSA EDIT: Hide normal non-monk item types
+Hide
+Rarity <= Unique
 # Class "Flasks" "Body Armours" "Helmets" "Boots" "Gloves" "Shields" "Foci" "Quivers" "One Hand Maces" "Two Hand Maces" "Staves" "Quarterstaves" "Bows" "Crossbows" "Wands" "Sceptres"
-# AreaLevel >= 65
-# DropLevel <= 50
-# SetBackgroundColor 0 0 0 125
+Class "Shields" "Foci" "Quivers" "One Hand Maces" "Two Hand Maces" "Staves" "Bows" "Crossbows" "Wands" "Sceptres"
+AreaLevel >= 65
+
+## Helmets
+# Armour
+Hide
+Rarity <= Rare
+BaseType "Rusted Greathelm" "Soldier Greathelm" "Wrapped Greathelm" "Spired Greathelm" "Elite Greathelm" "Warrior Greathelm" "Commander Greathelm" "Fierce Greathelm" "Dueling Greathelm" "Goliath Greathelm" "Guardian Greathelm"
+# Evasion
+Hide
+Rarity <= Rare
+BaseType "Shabby Hood" "Felt Cap" "Lace Hood" "Swathed Cap" "Hunter Hood" "Viper Cap" "Corsair Cap" "Leatherbound Hood" "Velvet Cap" "Covert Hood" "Armoured Cap"
+# ES
+Hide
+Rarity <= Rare
+BaseType "Twig Circlet" "Wicker Tiara" "Beaded Circlet" "Chain Tiara" "Feathered Tiara" "Gold Circlet" "Coral Circlet" "Jade Tiara" "Noble Circlet" "Twilight Tiara" "Magus Tiara"
+# Armour / Evasion
+Hide
+Rarity <= Rare
+BaseType "Brimmed Helm" "Guarded Helm" "Visored Helm" "Cowled Helm" "Shielded Helm" "Closed Helm" "Decorated Helm" "Gallant Helm"
+# Armour / ES
+Hide
+Rarity <= Rare
+BaseType "Iron Crown" "Horned Crown" "Cultist Crown" "Martyr Crown" "Heavy Crown" "Spiritbone Crown" "Lavish Crown" "Templar Crown"
+# Evasion / ES
+Hide
+Rarity <= Rare
+BaseType "Hewn Mask" "Face Mask" "Hooded Mask" "Veiled Mask" "Tribal Mask" "Shaded Mask" "Death Mask" "Templar Crown"
+
+## Body Armors
+# Armour
+Hide
+Rarity <= Rare
+BaseType "Rusted Cuirass" "Fur Plate" "Iron Cuirass" "Raider Plate" "Maraketh Cuirass" "Steel Plate" "Full Plate" "Vaal Cuirass" "Juggernaut Plate" "Chieftain Cuirass" "Colosseum Plate" "Champion Cuirass" "Glorious Plate" "Conqueror Plate" "Abyssal Cuirass"
+# Evasion
+Hide
+Rarity <= Rare
+BaseType "Leather Vest" "Quilted Vest" "Pathfinder Coat" "Shrouded Vest" "Rhoahide Coat" "Studded Vest" "Scout's Vest" "Serpentscale Coat" "Corsair Vest" "Smuggler Coat" "Strider Vest" "Hardleather Coat" "Exquisite Vest" "Mail Coat" "Armoured Vest"
+# ES
+Hide
+Rarity <= Rare
+BaseType "Tattered Robe" "Feathered Robe" "Hexer's Robe" "Bone Raiment" "Silk Robe" "Keth Raiment" "Votive Raiment" "Altar Robe" "Elementalist Robe" "Mystic Raiment" "Imperial Robe" "Plated Raiment" "Havoc Raiment" "Enlightened Robe" "Arcane Robe"
+# Armour / Evasion
+Hide
+Rarity <= Rare
+BaseType "Chain Mail" "Rogue Armour" "Vagabond Armour" "Cloaked Mail" "Explorer Armour" "Scale Mail" "Knight Armour" "Ancestral Mail" "Lamellar Mail" "Gladiator Armour" "Heroic Armour" "Tournament Mail" "Slayer Armour"
+# Armour / ES
+Hide
+Rarity <= Rare
+BaseType "Pilgrim Vestments" "Pelt Mantle" "Mail Vestments" "Shaman Mantle" "Ironclad Vestments" "Sacrificial Mantle" "Cleric Vestments" "Tideseer Mantle" "Gilded Vestments" "Venerated Mantle" "Revered Vestments" "Corvus Mantle" "Zenith Vestments"
+# Evasion / ES
+Hide
+Rarity <= Rare
+BaseType "Hermit Garb" "Waxed Jacket" "Marabout Garb" "Wayfarer Jacket" "Anchorite Garb" "Scalper's Jacket" "Scoundrel Jacket" "Ascetic Garb" "Clandestine Jacket" "Monastic Garb" "Torment Jacket" "Devout Garb" "Assassin Garb"
+
+## Gloves
+# Armour
+Hide
+Rarity <= Rare
+BaseType "Stocky Mitts" "Riveted Mitts" "Tempered Mitts" "Bolstered Mitts" "Moulded Mitts" "Detailed Mitts" "Titan Mitts" "Grand Mitts"
+# Evasion
+Hide
+Rarity <= Rare
+BaseType "Suede Bracers" "Firm Bracers" "Bound Bracers" "Sectioned Bracers" "Spined Bracers" "Fine Bracers" "Hardened Bracers" "Engraved Bracers"
+# ES
+Hide
+Rarity <= Rare
+BaseType "Torn Gloves" "Sombre Gloves" "Stitched Gloves" "Jewelled Gloves" "Intricate Gloves" "Pauascale Gloves" "Embroidered Gloves" "Adorned Gloves"
+# Armour / Evasion
+Hide
+Rarity <= Rare
+BaseType "Ringmail Gauntlets" "Layered Gauntlets" "Doubled Gauntlets" "Plate Gauntlets" "Burnished Gauntlets" "Ornate Gauntlets"
+# Armour / ES
+Hide
+Rarity <= Rare
+BaseType "Rope Cuffs" "Aged Cuffs" "Goldcast Cuffs" "Diviner Cuffs" "Righteous Cuffs" "Signet Cuffs"
+# Evasion / ES
+Hide
+Rarity <= Rare
+BaseType "Gauze Wraps" "Linen Wraps" "Spiral Wraps" "Buckled Wraps" "Furtive Wraps" "Utility Wraps"
+
+## Boots
+# Armour
+Hide
+Rarity <= Rare
+BaseType "Rough Greaves" "Iron Greaves" "Bronze Greaves" "Trimmed Greaves" "Stone Greaves" "Reefsteel Greaves" "Monument Greaves" "Totemic Greaves"
+# Evasion
+Hide
+Rarity <= Rare
+BaseType "Rawhide Boots" "Laced Boots" "Embossed Boots" "Steeltoe Boots" "Lizardscale Boots" "Flared Boots" "Leatherplate Boots" "Embroidered Boots"
+# ES
+Hide
+Rarity <= Rare
+BaseType "Straw Sandals" "Wrapped Sandals" "Lattice Sandals" "Silk Slippers" "Feathered Sandals" "Flax Sandals" "Studded Sandals" "Elaborate Sandals"
+# Armour / Evasion
+Hide
+Rarity <= Rare
+BaseType "Mail Sabatons" "Braced Sabatons" "Stacked Sabatons" "Covered Sabatons" "Flexile Sabatons" "Bold Sabatons"
+# Armour / ES
+Hide
+Rarity <= Rare
+BaseType "Padded Leggings" "Secured Leggings" "Pelt Leggings" "Weaver Leggings" "Gilt Leggings" "Pious Leggings"
+# Evasion / ES
+Hide
+Rarity <= Rare
+BaseType "Frayed Shoes" "Threaded Shoes" "Hunting Shoes" "Steelpoint Shoes" "Velour Shoes" "Bladed Shoes"
 
 #--------------------------
 # Meta
